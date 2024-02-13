@@ -1,16 +1,12 @@
 package ua.foxminded.javaspring.carmanager.entity;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Table(name = "maker", schema = "car")
-@Getter
-@EqualsAndHashCode
-@ToString
+@NoArgsConstructor
+@Data
 public class Maker {
 
     @Id
@@ -19,7 +15,6 @@ public class Maker {
     private long id;
 
     @Column(unique = true)
-    @Setter
     private String name;
 
     public Maker(String name) {

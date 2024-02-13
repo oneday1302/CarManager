@@ -9,42 +9,40 @@ import java.util.Set;
 
 @Entity
 @Table(name = "car", schema = "car")
-@Getter
-@EqualsAndHashCode
-@ToString
+@NoArgsConstructor
+@Data
 public class Car {
 
     @Id
-    @Setter
     private String id;
 
     @ManyToOne
     @JoinColumn(name = "model_id")
-    @Setter
     private Model model;
 
-    @Column(name = "production_year")
-    @Setter
+    @Column
     private Year productionYear;
 
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany
     @JoinTable(
             name = "car_body_type",
             schema = "car",
             joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "body_type_id", referencedColumnName = "id"))
-    private final Set<BodyType> bodyTypes = new HashSet<>();
+    private Set<BodyType> bodyTypes = new HashSet<>();
 
-    public Car(String id, Model model, Year productionYear) {
+    @Builder
+    public Car(String id, Model model, Year productionYear, Set<BodyType> bodyTypes) {
         this.id = id;
         this.model = model;
         this.productionYear = productionYear;
+        this.bodyTypes = bodyTypes;
     }
 
-    public void addBodyTypes(Set<BodyType> bodyTypes) {
-        if (bodyTypes == null) {
+    public void addBodyType(BodyType bodyType) {
+        if (bodyType == null) {
             throw new IllegalArgumentException("Param cannot be null.");
         }
-        this.bodyTypes.addAll(bodyTypes);
+        this.bodyTypes.add(bodyType);
     }
 }
