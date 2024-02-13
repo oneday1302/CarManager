@@ -12,7 +12,8 @@ create table model
 (
     id integer not null default nextval('model_seq') primary key,
     maker_id integer not null references maker (id),
-    name text not null unique
+    name text not null,
+    unique (maker_id, name)
 );
 
 create sequence body_type_seq start with 1 increment by 1;
