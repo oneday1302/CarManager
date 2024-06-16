@@ -9,11 +9,12 @@ public class CarMapperImpl implements CarMapper {
 
     @Override
     public Car dtoToCar(CarDTO dto) {
-        return Car.builder()
-                  .id(dto.getId())
-                  .model(dto.getModel())
-                  .productionYear(dto.getProductionYear())
-                  .bodyTypes(dto.getBodyTypes())
-                  .build();
+        Car car = Car.builder()
+                     .id(dto.getId())
+                     .model(dto.getModel())
+                     .productionYear(dto.getProductionYear())
+                     .build();
+        car.addAllBodyType(dto.getBodyTypes());
+        return car;
     }
 }

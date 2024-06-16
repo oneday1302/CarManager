@@ -10,8 +10,8 @@ import lombok.*;
 public class BodyType {
 
     @Id
+    @SequenceGenerator(name = "body_type_seq", schema = "car", sequenceName = "body_type_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "body_type_seq")
-    @SequenceGenerator(name = "body_type_seq", schema = "car", sequenceName = "body_type_seq", allocationSize = 1)
     private long id;
 
     @Column(unique = true)

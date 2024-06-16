@@ -2,8 +2,6 @@ package ua.foxminded.javaspring.carmanager.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.foxminded.javaspring.carmanager.dto.BodyTypeDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -27,14 +25,6 @@ public class BodyTypeServiceImpl implements BodyTypeService {
     }
 
     @Override
-    public void addAll(Iterable<BodyType> entities) {
-        if (entities == null) {
-            throw new IllegalArgumentException("Param cannot be null.");
-        }
-        repository.saveAll(entities);
-    }
-
-    @Override
     public BodyType update(BodyTypeDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Param cannot be null.");
@@ -49,15 +39,12 @@ public class BodyTypeServiceImpl implements BodyTypeService {
         if (paginateAndSort == null) {
             throw new IllegalArgumentException("Params cannot be null.");
         }
-        return repository.findAll(PageRequest.of(paginateAndSort.getPage(),
-                                                 paginateAndSort.getSize(),
-                                                 Sort.by(paginateAndSort.getSortedByFiled())))
-                         .getContent();
+        return repository.findAll(paginateAndSort.toPageRequest()).getContent();
     }
 
     @Override
     public BodyType get(long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maker not found!"));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Body type not found!"));
     }
 
     @Override

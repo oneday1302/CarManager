@@ -3,14 +3,11 @@ package ua.foxminded.javaspring.carmanager.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ua.foxminded.javaspring.carmanager.dto.ModelDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
 import ua.foxminded.javaspring.carmanager.entity.Model;
 import ua.foxminded.javaspring.carmanager.service.ModelService;
-import ua.foxminded.javaspring.carmanager.validation.CreateEntity;
-import ua.foxminded.javaspring.carmanager.validation.UpdateEntity;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class ModelController {
     private final ModelService service;
 
     @GetMapping
-    public ResponseEntity<List<Model>> getAll(@Valid @ModelAttribute PaginateAndSort paginateAndSort) {
+    public ResponseEntity<List<Model>> getAll(@Valid PaginateAndSort paginateAndSort) {
         return ResponseEntity.ok(service.getAll(paginateAndSort));
     }
 
@@ -32,12 +29,12 @@ public class ModelController {
     }
 
     @PostMapping
-    public ResponseEntity<Model> add(@Validated(CreateEntity.class) @RequestBody ModelDTO dto) {
+    public ResponseEntity<Model> add(@Valid @RequestBody ModelDTO dto) {
         return ResponseEntity.ok(service.add(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Model> update(@PathVariable long id, @Validated(UpdateEntity.class) @RequestBody ModelDTO dto) {
+    public ResponseEntity<Model> update(@PathVariable long id, @Valid @RequestBody ModelDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(service.update(dto));
     }

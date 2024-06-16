@@ -2,8 +2,6 @@ package ua.foxminded.javaspring.carmanager.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.foxminded.javaspring.carmanager.dto.CarDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -53,10 +51,7 @@ public class CarServiceImpl implements CarService {
         if (paginateAndSort == null) {
             throw new IllegalArgumentException("Params cannot be null.");
         }
-        return repository.findAll(PageRequest.of(paginateAndSort.getPage(),
-                                                 paginateAndSort.getSize(),
-                                                 Sort.by(paginateAndSort.getSortedByFiled())))
-                         .getContent();
+        return repository.findAll(paginateAndSort.toPageRequest()).getContent();
     }
 
     @Override
@@ -64,7 +59,7 @@ public class CarServiceImpl implements CarService {
         if (id == null) {
             throw new IllegalArgumentException("Param cannot be null.");
         }
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maker not found!"));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Car not found!"));
     }
 
     @Override

@@ -10,8 +10,6 @@ public interface MakerService {
 
     Maker add(MakerDTO dto);
 
-    void addAll(Iterable<Maker> entities);
-
     Maker update(MakerDTO dto);
 
     List<Maker> getAll(PaginateAndSort paginateAndSort);

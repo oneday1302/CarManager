@@ -10,8 +10,6 @@ public interface ModelService {
 
     Model add(ModelDTO dto);
 
-    void addAll(Iterable<Model> entities);
-
     Model update(ModelDTO dto);
 
     List<Model> getAll(PaginateAndSort paginateAndSort);

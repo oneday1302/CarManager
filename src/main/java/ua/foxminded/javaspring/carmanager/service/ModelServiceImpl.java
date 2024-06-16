@@ -2,8 +2,6 @@ package ua.foxminded.javaspring.carmanager.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ua.foxminded.javaspring.carmanager.dto.ModelDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -27,14 +25,6 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
-    public void addAll(Iterable<Model> entities) {
-        if (entities == null) {
-            throw new IllegalArgumentException("Param cannot be null.");
-        }
-        repository.saveAll(entities);
-    }
-
-    @Override
     public Model update(ModelDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Param cannot be null.");
@@ -50,16 +40,13 @@ public class ModelServiceImpl implements ModelService {
         if (paginateAndSort == null) {
             throw new IllegalArgumentException("Params cannot be null.");
         }
-        return repository.findAll(PageRequest.of(paginateAndSort.getPage(),
-                                                 paginateAndSort.getSize(),
-                                                 Sort.by(paginateAndSort.getSortedByFiled())))
-                         .getContent();
+        return repository.findAll(paginateAndSort.toPageRequest()).getContent();
     }
 
 
     @Override
     public Model get(long id) {
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Maker not found!"));
+        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException("Model not found!"));
     }
 
     @Override

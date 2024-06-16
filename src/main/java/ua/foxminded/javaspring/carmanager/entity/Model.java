@@ -10,11 +10,11 @@ import lombok.*;
 public class Model {
 
     @Id
+    @SequenceGenerator(name = "model_seq", schema = "car", sequenceName = "model_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "model_seq")
-    @SequenceGenerator(name = "model_seq", schema = "car", sequenceName = "model_seq", allocationSize = 1)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "maker_id")
     private Maker maker;
 

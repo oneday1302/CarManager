@@ -1,4 +1,4 @@
-create sequence maker_seq start with 1 increment by 1;
+create sequence maker_seq start with 1 increment by 50;
 
 create table maker
 (
@@ -6,7 +6,7 @@ create table maker
     name text not null unique
 );
 
-create sequence model_seq start with 1 increment by 1;
+create sequence model_seq start with 1 increment by 50;
 
 create table model
 (
@@ -16,7 +16,7 @@ create table model
     unique (maker_id, name)
 );
 
-create sequence body_type_seq start with 1 increment by 1;
+create sequence body_type_seq start with 1 increment by 50;
 
 create table body_type
 (

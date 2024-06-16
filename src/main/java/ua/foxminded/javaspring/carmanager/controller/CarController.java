@@ -3,14 +3,11 @@ package ua.foxminded.javaspring.carmanager.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ua.foxminded.javaspring.carmanager.dto.CarDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
 import ua.foxminded.javaspring.carmanager.entity.Car;
 import ua.foxminded.javaspring.carmanager.service.CarService;
-import ua.foxminded.javaspring.carmanager.validation.CreateEntity;
-import ua.foxminded.javaspring.carmanager.validation.UpdateEntity;
 
 import java.util.List;
 
@@ -22,7 +19,7 @@ public class CarController {
     private final CarService service;
 
     @GetMapping
-    public ResponseEntity<List<Car>> getAll(@Valid @ModelAttribute PaginateAndSort paginateAndSort) {
+    public ResponseEntity<List<Car>> getAll(@Valid PaginateAndSort paginateAndSort) {
         return ResponseEntity.ok(service.getAll(paginateAndSort));
     }
 
@@ -32,12 +29,12 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<Car> add(@Validated(CreateEntity.class) @RequestBody CarDTO dto) {
+    public ResponseEntity<Car> add(@Valid @RequestBody CarDTO dto) {
         return ResponseEntity.ok(service.add(dto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Car> update(@PathVariable String id, @Validated(UpdateEntity.class) @RequestBody CarDTO dto) {
+    public ResponseEntity<Car> update(@PathVariable String id, @Valid @RequestBody CarDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(service.update(dto));
     }

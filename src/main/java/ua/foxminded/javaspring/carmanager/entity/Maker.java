@@ -10,8 +10,8 @@ import lombok.*;
 public class Maker {
 
     @Id
+    @SequenceGenerator(name = "maker_seq", schema = "car", sequenceName = "maker_seq")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "maker_seq")
-    @SequenceGenerator(name = "maker_seq", schema = "car", sequenceName = "maker_seq", allocationSize = 1)
     private long id;
 
     @Column(unique = true)

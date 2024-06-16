@@ -16,27 +16,27 @@ public class Car {
     @Id
     private String id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "model_id")
     private Model model;
 
     @Column
     private Year productionYear;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "car_body_type",
             schema = "car",
             joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "body_type_id", referencedColumnName = "id"))
-    private Set<BodyType> bodyTypes = new HashSet<>();
+    private Set<BodyType> bodyTypes;
 
     @Builder
-    public Car(String id, Model model, Year productionYear, Set<BodyType> bodyTypes) {
+    public Car(String id, Model model, Year productionYear) {
         this.id = id;
         this.model = model;
         this.productionYear = productionYear;
-        this.bodyTypes = bodyTypes;
+        this.bodyTypes = new HashSet<>();
     }
 
     public void addBodyType(BodyType bodyType) {
@@ -44,5 +44,9 @@ public class Car {
             throw new IllegalArgumentException("Param cannot be null.");
         }
         this.bodyTypes.add(bodyType);
+    }
+
+    public void addAllBodyType(Set<BodyType> bodyTypes) {
+        this.bodyTypes.addAll(bodyTypes);
     }
 }

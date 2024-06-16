@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 @Data
 public class PaginateAndSort {
@@ -16,4 +18,8 @@ public class PaginateAndSort {
 
     @NotBlank
     String sortedByFiled = "id";
+
+    public PageRequest toPageRequest() {
+        return PageRequest.of(page, size, Sort.by(sortedByFiled));
+    }
 }
