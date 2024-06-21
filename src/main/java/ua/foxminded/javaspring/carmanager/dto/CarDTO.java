@@ -1,5 +1,6 @@
 package ua.foxminded.javaspring.carmanager.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class CarDTO {
     private Model model;
 
     @NotNull(message = "Year must not be null.")
+    @JsonFormat(pattern = "yyyy", shape = JsonFormat.Shape.OBJECT)
     private Year productionYear;
 
     @NotNull(message = "BodyTypes must not be null.")

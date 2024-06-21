@@ -31,7 +31,7 @@ public class BodyTypeServiceImpl implements BodyTypeService {
         }
         BodyType bodyType = get(dto.getId());
         bodyType.setName(dto.getName());
-        return bodyType;
+        return repository.save(bodyType);
     }
 
     @Override
