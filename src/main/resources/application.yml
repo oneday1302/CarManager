@@ -1,0 +1,20 @@
+okta:
+  oauth2:
+    issuer: https://car-rest-service.eu.auth0.com/
+    audience: https://carapi
+spring:
+  datasource:
+    #url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:tc:postgresql:latest://localhost:5432/postgres
+    username: postgres
+    password: 1996
+    #driverClassName: org.postgresql.Driver
+  flyway:
+    schemas: car
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_insert: true
+csv-file-name: file.csv

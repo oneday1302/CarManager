@@ -10,6 +10,8 @@ public interface BodyTypeService {
 
     BodyType add(BodyTypeDTO dto);
 
+    void addAll(Iterable<BodyType> bodyTypes);
+
     BodyType update(BodyTypeDTO dto);
 
     List<BodyType> getAll(PaginateAndSort paginateAndSort);

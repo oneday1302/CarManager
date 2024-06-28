@@ -25,6 +25,14 @@ public class MakerServiceImpl implements MakerService {
     }
 
     @Override
+    public void addAll(Iterable<Maker> makers) {
+        if (makers == null) {
+            throw new IllegalArgumentException("Param cannot be null.");
+        }
+        repository.saveAll(makers);
+    }
+
+    @Override
     public Maker update(MakerDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Param cannot be null.");

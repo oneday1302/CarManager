@@ -1,4 +1,4 @@
-package ua.foxminded.javaspring.carmanager.config;
+package ua.foxminded.javaspring.carmanager.configuration;
 
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;

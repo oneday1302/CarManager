@@ -38,6 +38,9 @@ public class ApplicationStartupRunner implements CommandLineRunner {
                 addBodyTypeToList(representation, bodyTypes);
                 addCarToList(representation, cars, models, bodyTypes);
             }
+            bodyTypeService.addAll(bodyTypes);
+            makerService.addAll(makers);
+            modelService.addAll(models);
             carService.addAll(cars);
         }
     }

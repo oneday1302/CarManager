@@ -25,6 +25,14 @@ public class BodyTypeServiceImpl implements BodyTypeService {
     }
 
     @Override
+    public void addAll(Iterable<BodyType> bodyTypes) {
+        if (bodyTypes == null) {
+            throw new IllegalArgumentException("Param cannot be null.");
+        }
+        repository.saveAll(bodyTypes);
+    }
+
+    @Override
     public BodyType update(BodyTypeDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Param cannot be null.");

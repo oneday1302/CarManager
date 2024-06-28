@@ -25,6 +25,14 @@ public class ModelServiceImpl implements ModelService {
     }
 
     @Override
+    public void addAll(Iterable<Model> models) {
+        if (models == null) {
+            throw new IllegalArgumentException("Param cannot be null.");
+        }
+        repository.saveAll(models);
+    }
+
+    @Override
     public Model update(ModelDTO dto) {
         if (dto == null) {
             throw new IllegalArgumentException("Param cannot be null.");
