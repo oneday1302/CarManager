@@ -1,5 +1,7 @@
 package ua.foxminded.javaspring.carmanager.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,17 +30,20 @@ public class CarController {
         return ResponseEntity.ok(service.get(id));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping
     public ResponseEntity<Car> add(@Valid @RequestBody CarDTO dto) {
         return ResponseEntity.ok(service.add(dto));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
     public ResponseEntity<Car> update(@PathVariable String id, @Valid @RequestBody CarDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(service.update(dto));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable String id) {
         service.delete(id);

@@ -1,5 +1,7 @@
 package ua.foxminded.javaspring.carmanager.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/body_types")
+
 @RequiredArgsConstructor
 public class BodyTypeController {
 
@@ -28,17 +31,20 @@ public class BodyTypeController {
         return ResponseEntity.ok(service.get(id));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PostMapping
     public ResponseEntity<BodyType> add(@Valid @RequestBody BodyTypeDTO dto) {
         return ResponseEntity.ok(service.add(dto));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @PutMapping("/{id}")
     public ResponseEntity<BodyType> update(@PathVariable long id, @Valid @RequestBody BodyTypeDTO dto) {
         dto.setId(id);
         return ResponseEntity.ok(service.update(dto));
     }
 
+    @Operation(security = @SecurityRequirement(name = "bearerAuth"))
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@PathVariable long id) {
         service.delete(id);
