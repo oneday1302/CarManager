@@ -1,11 +1,12 @@
 package ua.foxminded.javaspring.carmanager.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import ua.foxminded.javaspring.carmanager.entity.BodyType;
 import ua.foxminded.javaspring.carmanager.entity.Model;
+import ua.foxminded.javaspring.carmanager.validation.annotation.NotExist;
 
 import java.time.Year;
 import java.util.Set;
@@ -15,13 +16,14 @@ public class CarDTO {
 
 
     @NotBlank(message = "Id must not be blank.")
+    @NotExist(message = "Id already exist.")
     private String id;
 
     @NotNull(message = "Model must not be null.")
     private Model model;
 
     @NotNull(message = "Year must not be null.")
-    @JsonFormat(pattern = "yyyy", shape = JsonFormat.Shape.OBJECT)
+    @Schema(type = "string")
     private Year productionYear;
 
     @NotNull(message = "BodyTypes must not be null.")

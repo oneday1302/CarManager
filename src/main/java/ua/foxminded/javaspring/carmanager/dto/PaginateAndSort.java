@@ -1,6 +1,5 @@
 package ua.foxminded.javaspring.carmanager.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
@@ -16,7 +15,6 @@ public class PaginateAndSort {
     @Positive
     int size = 10;
 
-    @NotBlank
     String sortedByFiled = "id";
 
     public PageRequest toPageRequest() {
