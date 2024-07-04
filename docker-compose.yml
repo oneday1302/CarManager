@@ -3,7 +3,6 @@ services:
   db:
     container_name: db
     image: postgres:15
-    hostname: db
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
@@ -11,8 +10,6 @@ services:
   app:
     container_name: app
     image: car-manager:latest
-    build:
-      context: .
     depends_on:
       - db
     environment:
