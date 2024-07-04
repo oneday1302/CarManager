@@ -4,11 +4,10 @@ okta:
     audience: https://carapi
 spring:
   datasource:
-    #url: jdbc:postgresql://localhost:5432/postgres
-    url: jdbc:tc:postgresql:latest://localhost:5432/postgres
-    username: postgres
-    password: 1996
-    #driverClassName: org.postgresql.Driver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: ${DB_DRIVER_CLASS_NAME}
   flyway:
     schemas: car
   jpa:

@@ -1,0 +1,24 @@
+version: "3"
+services:
+  db:
+    container_name: db
+    image: postgres:15
+    hostname: db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  app:
+    container_name: app
+    image: car-manager:latest
+    build:
+      context: .
+    depends_on:
+      - db
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_DRIVER_CLASS_NAME: org.postgresql.Driver
+    ports:
+      - "8080:8080"

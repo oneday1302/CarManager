@@ -11,9 +11,9 @@
 	<groupId>ua.foxminded.javaspring</groupId>
 	<artifactId>carmanager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>CarManager</name>
-	<description>Spring Boot web project</description>
+	<description>Spring boot rest api</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>42.7.3</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
