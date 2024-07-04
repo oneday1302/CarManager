@@ -6,7 +6,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import ua.foxminded.javaspring.carmanager.entity.BodyType;
 import ua.foxminded.javaspring.carmanager.entity.Model;
-import ua.foxminded.javaspring.carmanager.validation.annotation.NotExist;
 
 import java.time.Year;
 import java.util.Set;
@@ -16,7 +15,6 @@ public class CarDTO {
 
 
     @NotBlank(message = "Id must not be blank.")
-    @NotExist(message = "Id already exist.")
     private String id;
 
     @NotNull(message = "Model must not be null.")

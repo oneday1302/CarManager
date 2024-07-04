@@ -24,13 +24,18 @@ public class ModelController {
     private final ModelService service;
 
     @Operation(
-            summary = "This endpoint available for all users.",
-            description = "This endpoint available for all users. The method returns list of models and supports sorting and pagination.",
-            responses = @ApiResponse(
-                    description = "Success",
-                    responseCode = "200",
-                    content = @Content(mediaType = "application/json")
-            )
+            summary = "The method returns list of models and supports sorting and pagination.",
+            responses = {
+                    @ApiResponse(
+                            description = "The method returns list of models.",
+                            responseCode = "200",
+                            content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            description = "Parameters are not valid.",
+                            responseCode = "400"
+                    )
+            }
     )
     @GetMapping
     public ResponseEntity<List<Model>> getAll(@Valid @ParameterObject PaginateAndSort paginateAndSort) {
@@ -38,16 +43,15 @@ public class ModelController {
     }
 
     @Operation(
-            summary = "This endpoint available for all users.",
-            description = "This endpoint available for all users. The method returns a model by id.",
+            summary = "The method returns a model by id.",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "The method returns a model.",
                             responseCode = "200",
                             content = @Content(mediaType = "application/json")
                     ),
                     @ApiResponse(
-                            description = "Not Found",
+                            description = "Entered id is not exist in database.",
                             responseCode = "404"
                     )
             }
@@ -59,11 +63,10 @@ public class ModelController {
 
     @Operation(
             security = @SecurityRequirement(name = "bearerAuth"),
-            summary = "This endpoint for authorized users.",
-            description = "This endpoint for authorized users. The method add new model to database and return added object.",
+            summary = "The method add new model to database and return added object.",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "The method return added object.",
                             responseCode = "200",
                             content = @Content(mediaType = "application/json")
                     ),
@@ -72,7 +75,7 @@ public class ModelController {
                             responseCode = "401"
                     ),
                     @ApiResponse(
-                            description = "Not Valid",
+                            description = "Request body is not valid.",
                             responseCode = "400"
                     )
             }
@@ -84,21 +87,24 @@ public class ModelController {
 
     @Operation(
             security = @SecurityRequirement(name = "bearerAuth"),
-            summary = "This endpoint for authorized users.",
-            description = "This endpoint for authorized users. The method update a model and save changes to database and return updated object.",
+            summary = "The method update a model and save changes to database and return updated object.",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "The method return updated object.",
                             responseCode = "200",
                             content = @Content(mediaType = "application/json")
+                    ),
+                    @ApiResponse(
+                            description = "Request body is not valid.",
+                            responseCode = "400"
                     ),
                     @ApiResponse(
                             description = "Unauthorized / Invalid Token",
                             responseCode = "401"
                     ),
                     @ApiResponse(
-                            description = "Not Valid",
-                            responseCode = "400"
+                            description = "Entered id is not exist in database.",
+                            responseCode = "404"
                     )
             }
     )
@@ -110,11 +116,10 @@ public class ModelController {
 
     @Operation(
             security = @SecurityRequirement(name = "bearerAuth"),
-            summary = "This endpoint for authorized users.",
-            description = "This endpoint for authorized users. The method delete a model from database.",
+            summary = "The method delete a model from database.",
             responses = {
                     @ApiResponse(
-                            description = "Success",
+                            description = "Object deleted from database.",
                             responseCode = "200"
                     ),
                     @ApiResponse(

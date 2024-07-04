@@ -71,14 +71,6 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public boolean existsById(String id) {
-        if (id == null) {
-            throw new IllegalArgumentException("Param cannot be null.");
-        }
-        return repository.existsById(id);
-    }
-
-    @Override
     public boolean isEmpty() {
         return repository.count() == 0;
     }

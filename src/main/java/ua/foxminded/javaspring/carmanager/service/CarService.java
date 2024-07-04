@@ -20,7 +20,5 @@ public interface CarService {
 
     void delete(String id);
 
-    boolean existsById(String id);
-
     boolean isEmpty();
 }
