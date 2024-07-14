@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.shaded.com.github.dockerjava.core.MediaType;
 import ua.foxminded.javaspring.carmanager.configuration.SecurityConfig;
 import ua.foxminded.javaspring.carmanager.dto.BodyTypeDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -69,7 +69,7 @@ public class BodyTypeControllerTest {
     public void add_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/body_types")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(new BodyTypeDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -83,7 +83,7 @@ public class BodyTypeControllerTest {
         when(service.add(dto)).thenReturn(new BodyType());
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/body_types")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())
@@ -104,7 +104,7 @@ public class BodyTypeControllerTest {
     public void update_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/body_types/{id}", 0)
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(new BodyTypeDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -118,7 +118,7 @@ public class BodyTypeControllerTest {
         when(service.update(dto)).thenReturn(new BodyType());
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/body_types/{id}", 0)
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())

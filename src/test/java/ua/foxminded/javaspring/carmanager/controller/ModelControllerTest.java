@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.shaded.com.github.dockerjava.core.MediaType;
 import ua.foxminded.javaspring.carmanager.configuration.SecurityConfig;
 import ua.foxminded.javaspring.carmanager.dto.ModelDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -71,7 +71,7 @@ public class ModelControllerTest {
     public void add_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/models")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(new ModelDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -86,7 +86,7 @@ public class ModelControllerTest {
         when(service.add(dto)).thenReturn(new Model());
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/models")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())
@@ -107,7 +107,7 @@ public class ModelControllerTest {
     public void update_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/models/{id}", 0)
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(new ModelDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -122,7 +122,7 @@ public class ModelControllerTest {
         when(service.update(dto)).thenReturn(new Model());
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/models/{id}", 0)
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())

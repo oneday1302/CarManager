@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.shaded.com.github.dockerjava.core.MediaType;
 import ua.foxminded.javaspring.carmanager.configuration.SecurityConfig;
 import ua.foxminded.javaspring.carmanager.dto.CarDTO;
 import ua.foxminded.javaspring.carmanager.dto.PaginateAndSort;
@@ -83,7 +83,7 @@ public class CarControllerTest {
     public void add_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/cars")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content((new ObjectMapper()).valueToTree(new CarDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -100,7 +100,7 @@ public class CarControllerTest {
         when(service.add(dto)).thenReturn(carMapper.dtoToCar(dto));
         mvc.perform(MockMvcRequestBuilders
                         .post("/api/v1/cars")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())
@@ -121,7 +121,7 @@ public class CarControllerTest {
     public void update_shouldReturnStatusBadRequest_whenRequestParametersNotValid() throws Exception {
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/cars/{id}", 0)
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content((new ObjectMapper()).valueToTree(new CarDTO()).toString())
                         .with(csrf()))
                 .andExpect(status().isBadRequest());
@@ -138,7 +138,7 @@ public class CarControllerTest {
         when(service.update(dto)).thenReturn(carMapper.dtoToCar(dto));
         mvc.perform(MockMvcRequestBuilders
                         .put("/api/v1/cars/{id}", "test")
-                        .contentType(MediaType.APPLICATION_JSON.getMediaType())
+                        .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.valueToTree(dto).toString())
                         .with(csrf()))
                 .andExpect(status().isOk())
